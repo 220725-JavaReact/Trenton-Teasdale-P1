@@ -30,11 +30,13 @@ public class AdminProducts extends HttpServlet{
 		resp.getWriter().write("<nav style=\"display:flex;\"><div style=\"display:flex;flex-direction:column\"><img src=\"https://tinyurl.com/bdebbru9\" width=\"100px\">"+customer.name+" <form method=\"get\" action=\"/P1/editAccount\"><input type=\"submit\" value=\"Edit Account\"> </form><form method=\"post\" action=\"/P1/logout\"><input type=\"submit\" value=\"Log Out\"> </form> </div></nav>");
 		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
         resp.getWriter().write("<h1>Items in store</h1>");
-        resp.getWriter().write("<form style=\"display:flex;flex-direction:column;\" method=\"post\" action=\"/P1/adminProducts\">");
+        resp.getWriter().write("<form style=\"display:flex;gap:2rem;\" method=\"post\" action=\"/P1/adminProducts\">");
         for(Product prod : store.prods) {
-        	resp.getWriter().write(prod.toString());
-        	resp.getWriter().write("<input type=\"submit\" name=\""+prod.name+"\" value=\"Edit Product\">");
-        	resp.getWriter().write("</br></br>");
+        	resp.getWriter().write("<div style=\"display:flex; flex-direction: column; align-items: center;\">");
+        	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\""+prod.getUrl()+"\" width=\"100px\">");
+        	resp.getWriter().write("<p>Name= "+prod.name+" </br>Price= $"+prod.getPrice()+" </br>Quantity= "+prod.getQuantity()+"</p>");
+        	resp.getWriter().write("<input style=\" height: 35px; width= 250px; \" type=\"submit\" name=\""+prod.name+"\" value=\"Edit Product\">");
+        	resp.getWriter().write("</div>");
         }
 		resp.getWriter().write("</form>"); 
 		resp.getWriter().write("</div>");
@@ -50,13 +52,14 @@ public class AdminProducts extends HttpServlet{
 		
 		
 		resp.getWriter().write("<html><body style=\"background-image: url(imgs/stardewbackground.png); color:white;\">");
-		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");		
-		resp.getWriter().write("<p>Update "+product.name+"Current Price: $"+product.getPrice()+" Remaining Quantity: "+product.getQuantity()+ "</p>");
+		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
+    	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\""+product.getUrl()+"\" width=\"100px\">");
+		resp.getWriter().write("<p>Update "+product.name+" </br>Current Price: $"+product.getPrice()+" </br>Remaining Quantity: "+product.getQuantity()+ "</p>");
 		resp.getWriter().write("<form method=\"post\" action=\"/P1/editProduct\">");
-		resp.getWriter().write("<label for=\"price\">Price</label> ");
-		resp.getWriter().write("<input type=\"number\" name=\"price\">");
+		resp.getWriter().write("<label for=\"price\">Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> ");
+		resp.getWriter().write("<input type=\"number\" name=\"price\"></br>");
 		resp.getWriter().write("<label for=\"quantity\">Quantity</label> ");
-		resp.getWriter().write("<input type=\"number\" name=\"quantity\">");
+		resp.getWriter().write("<input type=\"number\" name=\"quantity\"></br>");
 		resp.getWriter().write("<input type=\"submit\" vaule=\"Update Product\">");
 		resp.getWriter().write("</form>");
 		resp.getWriter().write("</div>");

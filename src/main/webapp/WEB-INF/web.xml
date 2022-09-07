@@ -87,6 +87,15 @@
   	<servlet-name>EditProducts</servlet-name>
   	<url-pattern>/editProduct</url-pattern>
   	</servlet-mapping>
+  	
+  	<servlet>
+  	<servlet-name>Home</servlet-name>
+  	<servlet-class>com.revature.controllers.Home</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+  	<servlet-name>Home</servlet-name>
+  	<url-pattern>/home</url-pattern>
+  	</servlet-mapping>
   	<!--  	
   	<servlet>
   	<servlet-name></servlet-name>

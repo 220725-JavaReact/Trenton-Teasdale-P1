@@ -30,11 +30,13 @@ public class StorePage extends HttpServlet{
 		resp.getWriter().write("<nav style=\"display:flex;\"><div style=\"display:flex;flex-direction:column\"><img src=\"https://tinyurl.com/bdebbru9\" width=\"100px\">"+customer.name+" <form method=\"get\" action=\"/P1/editAccount\"><input type=\"submit\" value=\"Edit Account\"> </form><form method=\"post\" action=\"/P1/logout\"><input type=\"submit\" value=\"Log Out\"> </form> </div></nav>");
 		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
         resp.getWriter().write("<h1>Items in store</h1>");
-        resp.getWriter().write("<form style=\"display:flex;flex-direction:column;\" method=\"post\" action=\"/P1/main\">");
+        resp.getWriter().write("<form style=\"display:flex; gap:2rem;\" method=\"post\" action=\"/P1/main\">");
         for(Product prod : store.prods) {
-        	resp.getWriter().write(prod.toString());
-        	resp.getWriter().write("<input type=\"submit\" name=\""+prod.name+"\" value=\"Add to cart\">");
-        	resp.getWriter().write("</br></br>");
+        	resp.getWriter().write("<div style=\"display:flex; flex-direction: column; align-items: center;\">");
+        	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\""+prod.getUrl()+"\" width=\"100px\">");
+        	resp.getWriter().write("<p>Name= "+prod.name+" </br>Price= $"+prod.getPrice()+" </br>Quantity= "+prod.getQuantity()+"</p>");
+        	resp.getWriter().write("<input style=\" height: 35px; width= 250px; \" type=\"submit\" name=\""+prod.name+"\" value=\"Add to cart\">");
+        	resp.getWriter().write("</div>");
         }
 		resp.getWriter().write("</form>"); 
 		resp.getWriter().write("</div>");
@@ -56,7 +58,7 @@ public class StorePage extends HttpServlet{
 					resp.getWriter().write("<p style=\"text-align:center;color:red; font-weight:600;\">no more remaining at this store</p>");
 					break;
 				}
-				Product product = new Product(store.prods.get(i).name, store.prods.get(i).getPrice(),1,store.prods.get(i).getProductId());
+				Product product = new Product(store.prods.get(i).name, store.prods.get(i).getPrice(),1,store.prods.get(i).getStoreId(),store.prods.get(i).getProductId(),store.prods.get(i).getUrl());
 				
 				for(int j=0;j<cart.size();j++) {
 					if(cart.get(j).name.equals(name)) {
@@ -77,19 +79,29 @@ public class StorePage extends HttpServlet{
 		resp.getWriter().write("<nav style=\"display:flex;\"><div style=\"display:flex;flex-direction:column\"><img src=\"https://tinyurl.com/bdebbru9\" width=\"100px\">"+customer.name+" <form method=\"get\" action=\"/P1/editAccount\"><input type=\"submit\" value=\"Edit Account\"> </form><form method=\"post\" action=\"/P1/logout\"><input type=\"submit\" value=\"Log Out\"> </form> </div></nav>");
 		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
         resp.getWriter().write("<h1>Items in store</h1>");
-        resp.getWriter().write("<form style=\"display:flex;flex-direction:column;\" method=\"post\" action=\"/P1/main\">");
+        resp.getWriter().write("<form style=\"display:flex; gap:2rem;\" method=\"post\" action=\"/P1/main\">");
         for(Product prod : store.prods) {
-        	resp.getWriter().write(prod.toString());
-        	resp.getWriter().write("<input type=\"submit\" name=\""+prod.name+"\" value=\"Add to cart\">");
-        	resp.getWriter().write("</br></br>");
-        }
-        resp.getWriter().write("<h2>Items in cart</h2>");
-        for(Product prod : cart) {
-        	resp.getWriter().write("<p>"+prod.toString()+"</p>");
+        	resp.getWriter().write("<div style=\"display:flex; flex-direction: column; align-items: center;\">");
+        	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\""+prod.getUrl()+"\" width=\"100px\">");
+        	resp.getWriter().write("<p>Name= "+prod.name+" </br>Price= $"+prod.getPrice()+" </br>Quantity= "+prod.getQuantity()+"</p>");
+        	resp.getWriter().write("<input style=\" height: 35px; width= 250px; \" type=\"submit\" name=\""+prod.name+"\" value=\"Add to cart\">");
+        	resp.getWriter().write("</div>");
         }
 		resp.getWriter().write("</form>");
-        resp.getWriter().write("<form style=\"display:flex;flex-direction:column;\" method=\"post\" action=\"/P1/order\">");
-        resp.getWriter().write("<input type=\"submit\" value=\"Submit Order\" >");
+		resp.getWriter().write("<h2>Items in cart</h2>");
+		resp.getWriter().write("<div style=\"display:flex; gap:2rem; align-items: center;\">");
+        double total = 0;
+        for(Product prod : cart) {
+        	resp.getWriter().write("<div style=\"display:flex; flex-direction: column; align-items: center;\">");
+        	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\""+prod.getUrl()+"\" width=\"100px\">");
+        	resp.getWriter().write("<p>Name= "+prod.name+" </br>Price= $"+prod.getPrice()+" </br>Quantity= "+prod.getQuantity()+"</p>");
+        	resp.getWriter().write("</div>");
+        	total += prod.getPrice() * prod.getQuantity();
+        }
+		resp.getWriter().write("</div>");
+        resp.getWriter().write("<h3>Order Total: "+total+"</h3>");
+        resp.getWriter().write("<form style=\"display:flex;flex-direction:column;\" method=\"post\" action=\"/P1/order\"></br>");
+        resp.getWriter().write("<input style=\" height: 35px; width= 250px; \" type=\"submit\" value=\"Submit Order\" >");
         resp.getWriter().write("</form>");
 		resp.getWriter().write("</div>");
 		resp.getWriter().write("</body></html>");

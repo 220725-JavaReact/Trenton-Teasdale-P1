@@ -28,6 +28,6 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "\nOrder [Order Number=" + orderNumber + ", Customer="+ customerName +", Total Cost=" + totalCost + ", Location=" + storeName + "\n\t" +items +"]";
+		return "\nOrder \nOrder Number=" + orderNumber + ", Customer="+ customerName +", Total Cost=" + totalCost + ", Location=" + storeName + "\n\t" +"]";
 	}
 }

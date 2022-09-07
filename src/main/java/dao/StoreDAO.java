@@ -50,7 +50,7 @@ public class StoreDAO implements DAO<Store>{
 					store.name= rs.getString("store_name");
 					store.address = rs.getInt("address");
 					store.setId(rs.getInt("Id"));
-				store.addProduct(new Product(rs.getString("product_name"),rs.getDouble("price"),rs.getInt("quantity"),rs.getInt("Id"),rs.getInt("productId"))); 
+				store.addProduct(new Product(rs.getString("product_name"),rs.getDouble("price"),rs.getInt("quantity"),rs.getInt("storeId"),rs.getInt("productId"),rs.getString("url"))); 
 			}
 			return store;
 		} catch (SQLException e) {

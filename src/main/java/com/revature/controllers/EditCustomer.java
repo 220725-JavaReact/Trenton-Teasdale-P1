@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.CustomerDAO;
+import dao.StoreDAO;
 import models.Customer;
+import models.Store;
 
 public class EditCustomer extends HttpServlet{
 	@Override
@@ -66,7 +68,21 @@ public class EditCustomer extends HttpServlet{
 		
 		Customer updatedCustomer = new Customer(name,address,email,number,password);
 		customerDAO.updateInstance(updatedCustomer);
+		StoreDAO storeDAO = new StoreDAO();
 		
-		resp.sendRedirect("/P1/");
+		session.setAttribute("customer", updatedCustomer);
+		resp.getWriter().write("<html><body style=\"background-image: url(imgs/stardewbackground.png); color:white;\">");
+		resp.getWriter().write("<nav style=\"display:flex;\"><div style=\"display:flex;flex-direction:column\"><img src=\"https://tinyurl.com/bdebbru9\" width=\"100px\">"+updatedCustomer.name+" <form method=\"get\" action=\"/P1/editAccount\"><input type=\"submit\" value=\"Edit Account\"> </form><form method=\"post\" action=\"/P1/logout\"><input type=\"submit\" value=\"Log Out\"> </form> </div></nav>");
+		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
+		resp.getWriter().write("<p>Welcome to Joja Mart</p><br>");
+			for(Store store : storeDAO.getAllInstances()) {
+				resp.getWriter().write("<form method=\"get\" action=\"/P1/main\"> <input type=\"submit\" name=\""+store.name+"\"+ value=\""+store.name+"\"> </form>");
+			}
+			if(customer.orders.size() >0) {
+				resp.getWriter().write("<form method=\"get\" action=\"/P1/order\"> <input type=\"submit\" name=\"orders\"+ value=\"Previous Orders\"> </form>");
+			}
+		
+		resp.getWriter().write("</div>");
+		resp.getWriter().write("</body></html>");
 	}
 }

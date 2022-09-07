@@ -18,6 +18,8 @@ import models.Customer;
 import models.Order;
 import models.Product;
 import models.Store;
+import util.Logger;
+import util.Logger.LogLevel;
 
 @SuppressWarnings("serial")
 public class NewOrder extends HttpServlet{
@@ -32,9 +34,10 @@ public class NewOrder extends HttpServlet{
 		resp.getWriter().write("<div style=\"color:black;display:flex;align-items:center;flex-direction:column;border: 9px ridge #f4910e; background: rgb(231,165,96);background: linear-gradient(0deg, rgba(231,165,96,1) 0%, rgba(252,197,113,1) 35%, rgba(231,165,96,1) 100%);margin:0 20%;\">");
 		resp.getWriter().write("Welcome "+ customer.name+"<br>");
 		for(Order order : orderDAO.getAllByName(customer.getEmail())) {
-			resp.getWriter().write("<p>Order "+order.orderNumber+" Total= $"+order.totalCost+" Store= "+order.storeName+"<br> Items = "+order.items+"</p><br><hr style=\"width:100%;\">");
+        	resp.getWriter().write("<img style=\" height: 50px; width: 50px;\" src=\"https://stardewvalleywiki.com/mediawiki/images/thumb/2/2b/Bundle_Yellow.png/32px-Bundle_Yellow.png\" width=\"100px\">");
+			resp.getWriter().write("<p>Order "+order.orderNumber+" Total= $"+order.totalCost+" Store= "+order.storeName+"<br>"+order.items+"</p><br><hr style=\"width:100%;\">");
 		}
-		resp.getWriter().write("<form method=\"get\" action=\"/P1/signIn\"> <input type=\"submit\" name=\"home\"+ value=\"Home\"> </form>");
+		resp.getWriter().write("<form method=\"get\" action=\"/P1/home\"> <input type=\"submit\" name=\"home\"+ value=\"Home\"> </form>");
 		resp.getWriter().write("</div>");
 		resp.getWriter().write("</body></html>");
 		
@@ -50,6 +53,7 @@ public class NewOrder extends HttpServlet{
 		ArrayList<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 		Customer customer = (Customer) session.getAttribute("customer");
 		
+		Logger.getLogger().log(LogLevel.warning,"New Order");
 		double cost =0;
 		for(Product product : cart) {
 			cost += product.getPrice() * product.getQuantity();

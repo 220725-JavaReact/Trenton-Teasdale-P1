@@ -8,24 +8,27 @@ public class Product {
 	private int quantity;
 	private int storeId;
 	private int productId;
+	private String url;
 	
-	public Product(String name, double price, int quantity, int storeId, int productId) {
+	public Product(String name, double price, int quantity, int storeId, int productId, String url) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
-		this.setProductId(productId);
+		this.productId = productId;
 		this.storeId = storeId;
+		this.url = url;
 	}
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	public Product(String name, double price, int quantity, int productId) {
+	public Product(String name, double price, int quantity, int productId,String url) {
 		// TODO Auto-generated constructor stub
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
-		this.setProductId(productId);
+		this.productId = productId;
+		this.url = url;
 	}
 	public double getPrice() {
 		return price;
@@ -47,7 +50,7 @@ public class Product {
 	}
 	@Override
 	public String toString() {
-		return "Product [Name= " + name + ", Price= $" + price + ", Quantity= " + quantity + "]";
+		return "Product \n[Name= " + name + ", Price= $" + price + ", Quantity= " + quantity + "]";
 	}
 	public int getStoreId() {
 		return storeId;
@@ -60,5 +63,11 @@ public class Product {
 	}
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }
