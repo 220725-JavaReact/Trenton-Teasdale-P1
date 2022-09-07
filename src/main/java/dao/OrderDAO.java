@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import models.Order;
 import models.Product;
 import util.ConnectionFactory;
+import util.Logger;
+import util.Logger.LogLevel;
 
 public class OrderDAO implements DAO<Order>{
 //	DAO<Product> productDAO = new ProductDBDAO();
@@ -33,6 +35,7 @@ public class OrderDAO implements DAO<Order>{
 				pstmt2.setInt(3, item.getQuantity());
 				pstmt2.execute();
 			}
+			Logger.getLogger().log(LogLevel.warning,"New Order");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

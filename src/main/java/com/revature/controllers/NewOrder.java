@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.CustomerDAO;
 import dao.OrderDAO;
 import dao.ProductDAO;
 import dao.StoreDAO;
@@ -18,8 +17,6 @@ import models.Customer;
 import models.Order;
 import models.Product;
 import models.Store;
-import util.Logger;
-import util.Logger.LogLevel;
 
 @SuppressWarnings("serial")
 public class NewOrder extends HttpServlet{
@@ -53,7 +50,7 @@ public class NewOrder extends HttpServlet{
 		ArrayList<Product> cart = (ArrayList<Product>) session.getAttribute("cart");
 		Customer customer = (Customer) session.getAttribute("customer");
 		
-		Logger.getLogger().log(LogLevel.warning,"New Order");
+		
 		double cost =0;
 		for(Product product : cart) {
 			cost += product.getPrice() * product.getQuantity();

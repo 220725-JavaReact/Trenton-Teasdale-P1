@@ -32,7 +32,7 @@ public class ProductDAO implements DAO<Product>{
 			pstmt.setString(1, name);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return new Product(rs.getString("product_name"),rs.getDouble("price"),rs.getInt("quantity"),rs.getInt("storeId"),rs.getInt("productId"), rs.getString("url"));
+				return new Product(rs.getString("product_name"),rs.getDouble("price"),rs.getInt("quantity"),rs.getInt("productId"), rs.getString("url"));
 			}
 		} catch (SQLException e) {
 			System.out.println("failed to get");

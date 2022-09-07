@@ -16,7 +16,6 @@ public class Logger {
 	private void writeToFile(String message) {
 		try (FileWriter writer = new FileWriter("app.log", true)){
 			writer.append(message+"\n");
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,6 +25,7 @@ public class Logger {
 	public void log(LogLevel logLevel, String message) {
 		Log newLog = new Log(logLevel, LocalDateTime.now(), message);
 		writeToFile(newLog.toString());
+		System.out.println(newLog);
 	}
 	
 	private class Log{
